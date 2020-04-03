@@ -14,9 +14,10 @@
 
 static int const kLabelWidth = 130;
 static int const kResultLabelWidth = 160;
-static int const kBorderWidth = 20;
+static int const kLeftBorderWidth = 15;
+static int const kRightBorderWidth = 30;
 static int const kTopDistance = 40;
-static int const kLineDistance = 20;
+static int const kLineDistance = 30;
 static int const kRowDistance = 40;
 static int const kLargeRowDistance = 50;
 
@@ -109,9 +110,9 @@ static int const kLargeRowDistance = 50;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     
     [view.topAnchor constraintEqualToAnchor:anchor constant:distance].active = YES;
-    [self.view.trailingAnchor constraintEqualToAnchor:view.trailingAnchor constant:kBorderWidth].active = YES;
+    [self.view.trailingAnchor constraintEqualToAnchor:view.trailingAnchor constant:kRightBorderWidth].active = YES;
     [label.centerYAnchor constraintEqualToAnchor:view.centerYAnchor constant:0].active = YES;
-    [label.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:kBorderWidth].active = YES;
+    [label.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:kLeftBorderWidth].active = YES;
     [label.widthAnchor constraintEqualToConstant:width].active = YES;
     [label.trailingAnchor constraintEqualToAnchor:view.leadingAnchor constant:kRowDistance].active = YES;
 }
