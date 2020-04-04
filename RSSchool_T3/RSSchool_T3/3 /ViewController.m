@@ -89,6 +89,47 @@ static int const kLargeRowDistance = 50;
 
 - (void)buttonProcessDidTap:(UIButton *)button {
     NSLog(@"Process...");
+    [self.view endEditing:YES];
+    [self processColor];
+    self.textFieldRed.text = @"";
+    self.textFieldGreen.text = @"";
+    self.textFieldBlue.text = @"";
+}
+
++ (NSString *)hexFromInt:(int)val {
+    return [NSString stringWithFormat:@"0x%X", val];
+}
+
+- (void)processColor {
+    NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    NSCharacterSet *characterSetFromRedTextField = [NSCharacterSet characterSetWithCharactersInString:self.textFieldRed.text];
+    NSCharacterSet *characterSetFromGreenTextField = [NSCharacterSet characterSetWithCharactersInString:self.textFieldGreen.text];
+    NSCharacterSet *characterSetFromBlueTextField = [NSCharacterSet characterSetWithCharactersInString:self.textFieldBlue.text];
+    
+    BOOL stringRedIsValid = [numbersOnly isSupersetOfSet:characterSetFromRedTextField] && (self.textFieldRed.text.length > 0);
+    BOOL stringGreenIsValid = [numbersOnly isSupersetOfSet:characterSetFromGreenTextField] && (self.textFieldGreen.text.length > 0);
+    BOOL stringBlueIsValid = [numbersOnly isSupersetOfSet:characterSetFromBlueTextField] && (self.textFieldBlue.text.length > 0);
+    
+    if (stringRedIsValid && stringGreenIsValid && stringBlueIsValid) {
+        int redPart = [self.textFieldRed.text intValue];
+        int greenPart = [self.textFieldGreen.text intValue];
+        int bluePart = [self.textFieldBlue.text intValue];
+        
+        if ((redPart >= 0) && (redPart <= 255) &&
+            (greenPart >= 0) && (greenPart <= 255) &&
+            (bluePart >= 0) && (bluePart <= 255)
+            )
+        {
+            UIColor* color = [UIColor colorWithRed:(redPart/255.0) green:(greenPart/255.0) blue:(bluePart/255.0) alpha:1];
+            self.viewResultColor.backgroundColor = color;
+            NSString * hexString = [NSString stringWithFormat:@"0x%02X%02X%02X", redPart, greenPart, bluePart];
+            [self.labelResultColor setText:hexString];
+        } else {
+            [self.labelResultColor setText:@"Error"];
+        }
+    } else {
+        [self.labelResultColor setText:@"Error"];
+    }
 }
 
 - (void)setupConstraints {
@@ -121,5 +162,13 @@ static int const kLargeRowDistance = 50;
     [self.buttonProcess.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor constant:0].active = YES;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.labelResultColor setText:@"Color"];
+}
 @end
 
