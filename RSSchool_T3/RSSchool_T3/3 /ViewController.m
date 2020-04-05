@@ -44,7 +44,7 @@ static int const kLargeRowDistance = 50;
     [self setupLabel:self.labelResultColor Named:@"labelResultColor" Labeled:@"Color"];
     self.viewResultColor = [[UIView alloc] initWithFrame:CGRectZero];
     self.viewResultColor.accessibilityIdentifier = @"viewResultColor";
-    self.viewResultColor.backgroundColor = UIColor.darkGrayColor;
+    self.viewResultColor.backgroundColor = UIColor.clearColor;
     [self.view addSubview:self.viewResultColor];
     
     self.labelRed = [UILabel new];
@@ -96,10 +96,6 @@ static int const kLargeRowDistance = 50;
     self.textFieldBlue.text = @"";
 }
 
-+ (NSString *)hexFromInt:(int)val {
-    return [NSString stringWithFormat:@"0x%X", val];
-}
-
 - (void)processColor {
     NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
     NSCharacterSet *characterSetFromRedTextField = [NSCharacterSet characterSetWithCharactersInString:self.textFieldRed.text];
@@ -126,9 +122,11 @@ static int const kLargeRowDistance = 50;
             [self.labelResultColor setText:hexString];
         } else {
             [self.labelResultColor setText:@"Error"];
+            self.viewResultColor.backgroundColor = UIColor.clearColor;
         }
     } else {
         [self.labelResultColor setText:@"Error"];
+        self.viewResultColor.backgroundColor = UIColor.clearColor;
     }
 }
 
@@ -169,7 +167,7 @@ static int const kLargeRowDistance = 50;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self.labelResultColor setText:@"Color"];
-    self.viewResultColor.backgroundColor = UIColor.darkGrayColor;
+    self.viewResultColor.backgroundColor = UIColor.clearColor;
 }
 @end
 
