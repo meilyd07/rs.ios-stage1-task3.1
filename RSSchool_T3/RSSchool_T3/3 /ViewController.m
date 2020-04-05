@@ -169,6 +169,7 @@ static int const kLargeRowDistance = 50;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self.labelResultColor setText:@"Color"];
+    self.viewResultColor.backgroundColor = UIColor.darkGrayColor;
 }
 @end
 
