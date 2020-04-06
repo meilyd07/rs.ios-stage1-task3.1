@@ -65,7 +65,7 @@ static int const kLargeRowDistance = 50;
     self.buttonProcess = [UIButton new];
     self.buttonProcess.accessibilityIdentifier = @"buttonProcess";
     self.buttonProcess.backgroundColor = [UIColor clearColor];
-    [self.buttonProcess setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
+    [self.buttonProcess setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.buttonProcess setTitle:@"Process" forState:UIControlStateNormal];
     [self.buttonProcess sizeToFit];
     [self.buttonProcess addTarget:self action:@selector(buttonProcessDidTap:) forControlEvents:UIControlEventTouchUpInside];
